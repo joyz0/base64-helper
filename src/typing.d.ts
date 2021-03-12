@@ -1,8 +1,8 @@
 declare module '*.json'
 
-interface Base64Interpreter {
+interface Base64Helper {
   // 解码
-  atob(str: string): string
+  decode(str: string): string
   // 编码
-  btoa(str: string): string
+  encode(str: string): string
 }

@@ -17,83 +17,13 @@ const makeExternalPredicate = (externalArr) => {
 const extensions = ['.ts', '.js', '.json']
 
 export default [
-  // CommonJS for Node
-  {
-    input: 'src/index.ts',
-    output: { file: 'lib/index.js', format: 'cjs' },
-    external: makeExternalPredicate([
-      ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.peerDependencies || {}),
-      '@babel/runtime'
-    ]),
-    plugins: [
-      resolve(),
-      json(),
-      babel({
-        babelHelpers: 'runtime',
-        extensions,
-        presets: ['@babel/preset-env', '@babel/preset-typescript'],
-        plugins: [
-          '@babel/plugin-proposal-class-properties',
-          ['@babel/plugin-transform-runtime', { useESModules: false }]
-        ]
-      }),
-      commonjs({ extensions })
-    ]
-  },
-  // ES for Node
-  {
-    input: 'src/index.ts',
-    output: { file: 'es/index.js', format: 'es' },
-    external: makeExternalPredicate([
-      ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.peerDependencies || {}),
-      '@babel/runtime'
-    ]),
-    plugins: [
-      resolve(),
-      json(),
-      babel({
-        babelHelpers: 'runtime',
-        extensions,
-        presets: ['@babel/preset-env', '@babel/preset-typescript'],
-        plugins: [
-          '@babel/plugin-proposal-class-properties',
-          ['@babel/plugin-transform-runtime', { useESModules: true }]
-        ]
-      }),
-      commonjs({ extensions })
-    ]
-  },
-  // ES for Browsers
-  {
-    input: 'src/index.ts',
-    output: {
-      file: 'es/index.mjs',
-      format: 'es'
-    },
-    external: makeExternalPredicate([]),
-    plugins: [
-      resolve(),
-      json(),
-      babel({
-        babelHelpers: 'bundled',
-        exclude: 'node_modules/**',
-        extensions,
-        presets: ['@babel/preset-env', '@babel/preset-typescript'],
-        plugins: ['@babel/plugin-proposal-class-properties']
-      }),
-      commonjs({ extensions }),
-      terser()
-    ]
-  },
   // UMD for Browsers
   {
     input: 'src/index.ts',
     output: {
       file: 'dist/index.js',
       format: 'umd',
-      name: 'Senea'
+      name: 'B64'
     },
     external: makeExternalPredicate([]),
     plugins: [
@@ -103,11 +33,10 @@ export default [
         babelHelpers: 'bundled',
         exclude: 'node_modules/**',
         extensions,
-        presets: ['@babel/preset-env', '@babel/preset-typescript'],
-        plugins: ['@babel/plugin-proposal-class-properties']
+        presets: ['@babel/preset-env', '@babel/preset-typescript']
       }),
-      commonjs({ extensions }),
-      terser()
+      commonjs({ extensions })
+      // terser()
     ]
   }
 ]

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../dist/index.js"></script>
+    <title>B64</title>
+  </head>
+  <body>
+    <script>
+      console.log(B64.encode('Hey') === 'SGV5')
+      console.log(B64.encode('H') === 'SA==')
+      console.log(B64.encode('He') === 'SGU=')
+      console.log(B64.decode('SGV5') === 'Hey')
+      console.log(B64.decode('SA==') === 'H')
+      console.log(B64.decode('SGU=') === 'He')
+      console.log(B64.decode('SGV=') === 'He')
+      console.log(B64.decode('SGY=') === 'Hf')
+      B64.decode('S')
+    </script>
+  </body>
+</html>

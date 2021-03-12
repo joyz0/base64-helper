@@ -1,24 +1,18 @@
-import {
-  decodeUTF8string,
-  decode,
-  decodeChar,
-  decodeGroup
-} from '../src/decode'
+import { decodeUTF8string, decode } from '../src/decode'
 
-it('decodeChar', () => {
-  const bin = decodeChar('S')
-  expect(bin).toBe('010010')
-})
-
-it('decodeGroup', () => {
-  const bin = decodeGroup('SGV5')
+it('decode', () => {
+  expect(() => decode('S')).toThrowError(Error)
+  expect(decode('SGV5')).toBe('Hey')
+  expect(decode('SA')).toBe('H')
+  expect(decode('SA==')).toBe('H')
+  expect(decode('SGU=')).toBe('He')
+  expect(decode('SGV=')).toBe('He')
+  expect(decode('SGW=')).toBe('He')
+  expect(decode('SGX=')).toBe('He')
+  expect(decode('SGY=')).toBe('Hf')
 })
 
 it('decodeUTF8string', () => {
   expect(decodeUTF8string('%E4%BD%A0%E5%A5%BD')).toBe('%E4%BD%A0%E5%A5%BD')
-  expect(decodeUTF8string('%E4%BD%A0%E5%A5%BD')).toBe('你好')
-})
-
-it('decode', () => {
-  expect(decode('S')).toBe('1')
+  // expect(decodeUTF8string('%E4%BD%A0%E5%A5%BD')).toBe('你好')
 })
